@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Chat Application</div>
+        <ul id="messages"></ul>
+
+        <div class="username-form">
+            <input id="username" autocomplete="off" placeholder="Enter your username" />
+            <button id="setUsername">Set Username</button>
+        </div>
+
+        <form id="form" action="" style="display:none;">
+            <input id="input" autocomplete="off" placeholder="Type a message..." />
+            <button>Send</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        let username = null;
+
+        // Set the username and start the chat
+        document.getElementById('setUsername').addEventListener('click', () => {
+            const inputUsername = document.getElementById('username').value;
+            if (inputUsername) {
+                username = inputUsername;
+                socket.emit('set username', username);
+
+                // Show the chat form and hide the username form
+                document.getElementById('form').style.display = 'flex';
+                document.querySelector('.username-form').style.display = 'none';
+            }
+        });
+
+        // Display chat history on load
+        socket.on('chat history', (messages) => {
+            const messageList = document.getElementById('messages');
+            messages.forEach((msg) => {
+                const li = document.createElement('li');
+                li.classList.add('message');
+                li.innerHTML = `<span class="username">${msg.username}:</span> ${msg.message} <span class="timestamp">[${new Date(msg.timestamp).toLocaleTimeString()}]</span>`;
+                messageList.appendChild(li);
+            });
+        });
+
+        // Add message to the list when received
+        socket.on('chat message', (msg) => {
+            const messageList = document.getElementById('messages');
+            const li = document.createElement('li');
+            li.classList.add('message');
+            li.innerHTML = `<span class="username">${msg.username}:</span> ${msg.message} <span class="timestamp">[${new Date(msg.timestamp).toLocaleTimeString()}]</span>`;
+            messageList.appendChild(li);
+        });
+
+        // Handle message form submission
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
