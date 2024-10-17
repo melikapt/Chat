@@ -20,7 +20,28 @@ body {
     flex-direction: column;
 }
 
+.user-status-container{
+    width: 100%;
+    max-width: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: -200px;
+}
+
 .chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.status-header {
     background-color: #4CAF50;
     color: white;
     padding: 15px;
@@ -37,7 +58,24 @@ body {
     height: 400px;
 }
 
+#users {
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+    height: 400px;
+}
+
 #messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#users li {
     padding: 10px;
     margin-bottom: 10px;
     background-color: #f4f4f4;
@@ -94,25 +132,52 @@ button:hover {
     background-color: #45a049;
 }
 
-.username-form {
-    display: flex;
+.auth-form {
+    /* display: flex; */
     padding: 20px;
     justify-content: center;
 }
 
-.username-form input {
-    padding: 10px;
+.auth-form input {
+    padding: 15px;
     width: 70%;
     border-radius: 5px;
     border: 1px solid #ddd;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    margin-top: 10px;
 }
 
-.username-form button {
+.auth-form button {
     background-color: #4CAF50;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
+}
+
+#roomName-form {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+}
+
+#roomName-form input {
+    padding: 15px;
+    width: 70%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#roomName-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
 }
